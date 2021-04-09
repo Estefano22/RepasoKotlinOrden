@@ -129,5 +129,60 @@ fun main(args: Array<String>) {
     }
 
 
+    // Crear lista vacia sin parámetros. Te fuerza a especificar tipo
+    var listVacia = listOf<Int>()
+
+    // Crear lista con parámetros. No te fuerza a especificar tipo
+    val listNumeros = listOf(1,2,3,4)
+
+    // Una lista mutable nos permite añadir y eliminar elementos
+    val listNumerosMutable = mutableListOf(1,2,3,4)
+    listNumerosMutable.add(5)
+
+
+    // Podemos transformar una lista no mutable en una COPIA de la lista mutable.
+    var copiaListaVacia = listVacia.toMutableList()
+    copiaListaVacia.add(1)
+    copiaListaVacia.add(2)
+    copiaListaVacia.add(3)
+    listVacia = copiaListaVacia
+    println(listVacia)
+
+    // Para leer lso elementos de una lista se hace :
+    copiaListaVacia[0]
+
+
+    // Para eliminar un elemento
+    copiaListaVacia.remove(2) // Nos elemina al 2 xq eliminamos a un elemento que es un 2
+    println(copiaListaVacia)
+    copiaListaVacia.removeAt(1) // Nos elimina al 3 xq está en la segunda posición.
+    println(copiaListaVacia)
+
+
+    val listaPalabras = mutableListOf("Uno", "Dos", "Tres")
+    listaPalabras.remove("Dos") // Nos elemina al "Dos" xq eliminamos a un elemento que es un "Dos"
+    println(listaPalabras)
+    listaPalabras.removeAt(1) // Nos elimina al 3 xq está en la segunda posición.
+    println(listaPalabras)
+
+    listaPalabras.forEach {
+        println(it)
+    }
+
+    copiaListaVacia.forEach { numero ->
+        println(numero)
+    }
+
+    val listaPalabrasLargas = mutableListOf("Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete")
+    // Quiero que me escriba los elementos cuyo nunmero de caracteres es par.
+    listaPalabrasLargas.forEach { numero ->
+        println(numero)
+    }
+
+    // Quiero que me escriba los elementos cuya posición es PAR.
+
+
+
+
 
 }
