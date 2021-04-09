@@ -176,12 +176,33 @@ fun main(args: Array<String>) {
     val listaPalabrasLargas = mutableListOf("Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete")
     // Quiero que me escriba los elementos cuyo nunmero de caracteres es par.
     listaPalabrasLargas.forEach { numero ->
-        println(numero)
+        if (numero.length % 2 == 0) println(numero)
+    }
+    for (palabra  in listaPalabras){
+        if (palabra.length % 2 == 0) println(palabra)
     }
 
     // Quiero que me escriba los elementos cuya posición es PAR.
+    listaPalabrasLargas.forEachIndexed { posicion, elemento ->
+        if (posicion % 2 == 0) println(elemento)
+    }
+    for (posicion  in listaPalabras.indices){
+        if (posicion % 2 == 0) println(listaPalabras[posicion])
+    }
 
+    println("*******")
 
+    // Quiero que me escriban todos los elementos cuyo nombre contiene una letra "a"
+    listaPalabrasLargas.forEach { numero ->
+        if (numero.contains("a")) println(numero)
+    }
+
+    println("*******")
+
+    // Quiero que me escriban todos los elementos cuyo nombre contiene una letra "o" y no está ni en la primera ni en la última posición
+    listaPalabrasLargas.forEachIndexed { posicion, numero ->
+        if (numero.contains("o") && posicion != 0 && posicion != listaPalabrasLargas.lastIndex) println(numero)
+    }
 
 
 
