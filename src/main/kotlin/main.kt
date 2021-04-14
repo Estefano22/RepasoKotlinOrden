@@ -205,5 +205,56 @@ fun main(args: Array<String>) {
     }
 
 
+    // Llamar a una función
+    miFuncion1()
+    miFuncion2(1)
+    miFuncion3(null)
+    miFuncion4(1,2)
+    miFuncion5(1,2)
+    miFuncion5(miVariable2 = 1,miVariable1 = 2)
+    miFuncion6()
+    miFuncion6(1)
+    miFuncion6(miVariable2 = 2)
+
+
+    escribeEsto(1)
+    escribeEsto("uno")
+
 
 }
+
+fun miFuncion1() {
+    println("Soy la función1")
+}
+
+fun miFuncion2(miVariable : Int) {
+    println("Soy la función2 $miVariable")
+}
+
+fun miFuncion3(miVariable : Int?) {
+    println("Soy la función3 $miVariable")
+}
+
+fun miFuncion4(miVariable1 : Int, miVariable2 : Int) {
+    println("Soy la función4 y sumo ${miVariable1 + miVariable2}")
+}
+
+fun miFuncion5(miVariable1 : Int, miVariable2 : Int) : Int {
+    println("Soy la función4 y devuelvo cosas")
+    return miVariable1 + miVariable2
+}
+
+fun miFuncion6(miVariable1 : Int = 0, miVariable2 : Int = 0) : Int {
+    println("Soy la función4 y devuelvo cosas")
+    return miVariable1 + miVariable2
+}
+
+fun escribeEsto(numero: Int){
+    println("El numero es $numero")
+}
+
+fun escribeEsto(texto: String){
+    // No tiene xq parecerse a escribeEsto(numero: Int)
+    println("El numero es $texto")
+}
+
