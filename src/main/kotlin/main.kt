@@ -221,6 +221,13 @@ fun main(args: Array<String>) {
     escribeEsto("uno")
 
 
+    // Clases
+    val nombreCompleto = NombreCompleto("Carlos", "Tena")
+    val persona = Persona(nombreCompleto)
+    persona.edad = 30
+    persona.setDni("12345678B")
+    println(persona.toString())
+
 }
 
 fun miFuncion1() {
@@ -258,3 +265,23 @@ fun escribeEsto(texto: String){
     println("El numero es $texto")
 }
 
+
+// La clase más pequeña posible.
+class Persona(var nombreCompleto : NombreCompleto){
+    // edad var es pública, no pongo restricciones a que lo cambien.
+    var edad = 18
+    // dni no es publica, quiero asegurarme que toda DNI tiene 8 cifras y acaba en una letra
+    private var dni : String? = null
+
+    fun setDni(dni: String) {
+        if (dni.length == 9 && dni[dni.length-1].isLetter()) {
+            this.dni = dni
+        }
+    }
+
+    override fun toString(): String {
+        return "Soy ${nombreCompleto.nombre} con DNI $dni"
+    }
+}
+
+class NombreCompleto(var nombre: String, var apellido:String)
