@@ -228,6 +228,20 @@ fun main(args: Array<String>) {
     persona.setDni("12345678B")
     println(persona.toString())
 
+    val profesor = Profesor( NombreCompleto("Alfredo", "XI"), 111111L)
+    profesor.numeroLicencia
+    println(profesor.toString())
+    profesor.saluda()
+
+    val secretario = Secretario(NombreCompleto("Rodolfo", "V"))
+    secretario.saluda()
+    secretario.apuntaCita()
+
+    println("Empezamos con la lista")
+    val lista = listOf(profesor, secretario)
+    lista.forEach {
+        it.saluda()
+    }
 }
 
 fun miFuncion1() {
@@ -267,7 +281,8 @@ fun escribeEsto(texto: String){
 
 
 // La clase más pequeña posible.
-class Persona(var nombreCompleto : NombreCompleto){
+// El open se añade al heredar.
+open class Persona(var nombreCompleto : NombreCompleto){
     // edad var es pública, no pongo restricciones a que lo cambien.
     var edad = 18
     // dni no es publica, quiero asegurarme que toda DNI tiene 8 cifras y acaba en una letra
@@ -285,3 +300,29 @@ class Persona(var nombreCompleto : NombreCompleto){
 }
 
 class NombreCompleto(var nombre: String, var apellido:String)
+
+// La herencia - Me quedo con tode lo que hace el padre más lo que yo quiera añadir
+class Profesor(nombre : NombreCompleto, var numeroLicencia: Long) : Persona(nombre), PuedeSaludar {
+    override fun saluda() {
+        println("Soy el profesor y te digo Hello.")
+    }
+
+    override fun toString(): String {
+        return "Soy ${nombreCompleto.nombre} y su número de licencia es $numeroLicencia"
+    }
+}
+
+
+class Secretario(nombre : NombreCompleto) : Persona(nombre), PuedeSaludar {
+    override fun saluda() {
+        println("Soy el secreatrio y te digo Hola.")
+    }
+    fun apuntaCita() {
+        println("Ok, cita apuntada")
+    }
+
+}
+
+interface PuedeSaludar {
+    fun saluda()
+}
