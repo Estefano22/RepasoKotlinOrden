@@ -222,18 +222,19 @@ fun main(args: Array<String>) {
 
 
     // Clases
-    val nombreCompleto = NombreCompleto("Carlos", "Tena")
-    val persona = Persona(nombreCompleto)
-    persona.edad = 30
-    persona.setDni("12345678B")
-    println(persona.toString())
+    // Dado que persona ahora es abstract, no podemos crear una instancia de esa clase.
+    // val nombreCompleto = NombreCompleto("Carlos", "Tena")
+    // val persona = Persona(nombreCompleto)
+    // persona.edad = 30
+    // persona.setDni("12345678B")
+    // println(persona.toString())
 
-    val profesor = Profesor( NombreCompleto("Alfredo", "XI"), 111111L)
+    val profesor = Profesor( NombreCompleto("Alfredo", "XI"), 111111L, 59)
     profesor.numeroLicencia
     println(profesor.toString())
     profesor.saluda()
 
-    val secretario = Secretario(NombreCompleto("Rodolfo", "V"))
+    val secretario = Secretario(NombreCompleto("Rodolfo", "V"), 23)
     secretario.saluda()
     secretario.apuntaCita()
 
@@ -241,6 +242,13 @@ fun main(args: Array<String>) {
     val lista = listOf(profesor, secretario)
     lista.forEach {
         it.saluda()
+        it.miTareaFavorita()
+        if (it is Profesor) {
+            println("Soy un profesor persona")
+        }
+        if (it is Secretario) {
+            println("Soy un secreatrio")
+        }
     }
 }
 
@@ -282,9 +290,9 @@ fun escribeEsto(texto: String){
 
 // La clase más pequeña posible.
 // El open se añade al heredar.
-open class Persona(var nombreCompleto : NombreCompleto){
+abstract class Persona(var nombreCompleto : NombreCompleto){
     // edad var es pública, no pongo restricciones a que lo cambien.
-    var edad = 18
+    abstract var edad : Int
     // dni no es publica, quiero asegurarme que toda DNI tiene 8 cifras y acaba en una letra
     private var dni : String? = null
 
@@ -297,12 +305,14 @@ open class Persona(var nombreCompleto : NombreCompleto){
     override fun toString(): String {
         return "Soy ${nombreCompleto.nombre} con DNI $dni"
     }
+
+    abstract fun miTareaFavorita()
 }
 
 class NombreCompleto(var nombre: String, var apellido:String)
 
 // La herencia - Me quedo con tode lo que hace el padre más lo que yo quiera añadir
-class Profesor(nombre : NombreCompleto, var numeroLicencia: Long) : Persona(nombre), PuedeSaludar {
+class Profesor(nombre : NombreCompleto, var numeroLicencia: Long, override var edad: Int) : Persona(nombre), PuedeSaludar {
     override fun saluda() {
         println("Soy el profesor y te digo Hello.")
     }
@@ -310,10 +320,14 @@ class Profesor(nombre : NombreCompleto, var numeroLicencia: Long) : Persona(nomb
     override fun toString(): String {
         return "Soy ${nombreCompleto.nombre} y su número de licencia es $numeroLicencia"
     }
+
+    override fun miTareaFavorita() {
+        println("Dar clases")
+    }
 }
 
 
-class Secretario(nombre : NombreCompleto) : Persona(nombre), PuedeSaludar {
+class Secretario(nombre : NombreCompleto, override var edad: Int) : Persona(nombre), PuedeSaludar {
     override fun saluda() {
         println("Soy el secreatrio y te digo Hola.")
     }
@@ -321,6 +335,9 @@ class Secretario(nombre : NombreCompleto) : Persona(nombre), PuedeSaludar {
         println("Ok, cita apuntada")
     }
 
+    override fun miTareaFavorita() {
+        println("Ordenar papeles")
+    }
 }
 
 interface PuedeSaludar {
